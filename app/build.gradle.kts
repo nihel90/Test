@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -39,6 +40,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -51,7 +53,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -67,7 +68,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.hilt)
     kapt(libs.hiltCompiler)
@@ -79,11 +79,15 @@ dependencies {
     kapt(libs.testingJunitJupiterPlugin)
     kapt(libs.testingMockk)
     kapt(libs.testingCoroutines)
-
     releaseImplementation(libs.retrofit)
     debugImplementation(libs.retrofitGson)
-
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.bundles.commonTest)
+    testImplementation(libs.testingJunitJupiterApi)
+    kaptTest(libs.testingHilt)
+    testRuntimeOnly(libs.testingJunitJupiterEngine)
 }
